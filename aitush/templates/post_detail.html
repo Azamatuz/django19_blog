@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load urlify %}
+{% block content %}
+
+{% include "nav_detail.html" %}
+ <!-- post -->
+  <section id="blog">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                  <h2>{{ instance.title }}</h2>
+                  <h4><small>{{ instance.timestamp }} </small></h4> <!--{% if instance.draft %}<span style="color:red">Draft</span> {{instance.publish}}{% endif %}-->
+                  {% if instance.image %}
+                  <img src="{{ instance.image.url }}" class="img-responsive">
+                  {% endif %}
+                  <br>
+                  <div class="fb-like" data-href="{{ request.build_absolute_url }}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                  <!--<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_url }}">-->
+                      <!--Share on Facebook-->
+                  <!--</a>-->
+
+                  <p>{{ instance.content| linebreaks }}</p>
+                  <hr class="small">
+
+              </div>
+              <div class="fb-comments" data-href="{{ request.build_absolute_url }}" data-numposts="5"></div>
+          </div>
+          <!-- /.row -->
+      </div>
+      <!-- /.container -->
+  </section>
+ <!--Footer-->
+{% include "footer.html" %}
+
+{% endblock content %}

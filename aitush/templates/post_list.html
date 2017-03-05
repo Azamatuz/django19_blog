@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Nav -->
+{% include "nav_blog.html" %}
+
+  <section id="blog" class="blog">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-10 col-lg-offset-1 text-center">
+                  <h2> My Blog</h2>
+
+
+                  <div class="row">
+                      {% for obj in obj_list %}
+                      <div class="col-md-6">
+                          <div class="blog-item">
+                              {% if obj.image %}
+                                <img src="{{ obj.image.url }}" class="img-responsive" alt="">
+                              {% endif %}
+
+                              <!--{% if obj.draft %}<h3>Staff only: Draft</h3>{% endif %} {% if obj.publish > today %}<h3>Staff Only: Future Post</h3>{% endif %}-->
+                              <h3><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> <br> <small>{{ obj.timestamp| timesince }} ago</small></h3>
+
+                              <h3>
+                                <blockquote><em>{{ obj.content| truncatewords:10 }}</em>   <a href="{{ obj.get_absolute_url }}">Read More</a> </blockquote>
+                              </h3>
+
+                          </div>
+                      </div>
+                      <!--{% cycle '' '</div><div class="row">' %}-->
+                    {% endfor %}
+
+                  </div>
+                  <!-- /.row (nested) -->
+                  <!-- <a href="#" class="btn btn-dark">View More Items</a> -->
+                  <div class="pagination">
+                      <span class="step-links">
+                          {% if obj_list.has_previous %}
+                          <a href="?page={{ obj_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }} {% endif %}">previous</a>
+                          {% endif %}
+                          <span class="current">
+                              Page {{ obj_list.number }} of {{ obj_list.paginator.num_pages }}
+                          </span>
+                          {% if obj_list.has_next %}
+                          <a href="?page={{ obj_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }} {% endif %}">next</a>
+                          {% endif %}
+                      </span>
+                  </div>
+              </div>
+              <!-- /.col-lg-10 -->
+          </div>
+          <!-- /.row -->
+      </div>
+      <!-- /.container -->
+  </section>
+
+{% include "footer.html" %}
+
+{% endblock content %}

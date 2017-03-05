@@ -1,0 +1,14 @@
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<form method="post" action="" enctype="multipart/form-data" role="form" id="contact-form" class="contact-form"> {% csrf_token %}
+            <h1>Create New Post</h1>
+            {{ form.as_p }}
+            <input class="btn btn-default"  type="submit" value="Create Post" />
+
+        </form>
+	</div>
+</div>
+{% endblock content %}
